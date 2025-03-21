@@ -1,0 +1,16 @@
+what is BEM ?
+Block Element Modifier
+so it is just a basic methodology which is used to structure the naming the css classes in a structured format
+
+Block - A block is a section or a component like say for example a navbar, a profile card, a header or a footer 
+Element - A Element is children of block for example in navbar we can see navlinks and in profile card we can see images header and para
+Modifier - A Modifier defines the appearence and behaviour of a block or element for ex: button-primary, button--disabled, checkbox--checked, color--yellow
+
+ex: Profile card(block), Elements(profile-card__img, profile-card__title, profile-card__des), Modifier(profile-card__button--primary, profile-card__button--secondary)
+
+for block use - profile-card
+for element first mention the block name and seperate it with __ like this profile-card__img
+for Modifier first mention the block name and seperate it with -- like this profile-card__button--primary
+
+
+

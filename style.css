@@ -1,0 +1,45 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    height: 100vh;
+    background-color: #121338;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.btn {
+    padding: 5px 10px;
+    border: transparent;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-tomoto {
+    background-color: tomato;
+    color: #fff;
+}
+
+.btn-purple {
+    background-color: purple;
+    color: #fff;
+}
+
+.btn-green {
+    background-color: green;
+    color: #fff;
+}
+
+.btn.disabled {
+    background-color: #fff;
+    color: gray;
+    cursor: not-allowed;
+}
+
+

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Step Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+      .container {
+        width: 400px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+      .progress-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        position: relative;
+      }
+      .progress-step {
+        width: 33%;
+        height: 5px;
+        background-color: lightgray;
+        transition: background-color 0.3s;
+        position: relative;
+      }
+      .progress-step.active {
+        background-color: #007bff;
+      }
+      .progress-step::before {
+        content: attr(data-step);
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        padding: 5px;
+        border-radius: 50%;
+        border: 1px solid #007bff;
+      }
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+      .input-container {
+        position: relative;
+        width: 100%;
+      }
+      .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        margin-right: 5px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Multi-Step Form</h2>
+      <div class="progress-container">
+        <div class="progress-step" id="step1" data-step="1"></div>
+        <div class="progress-step" id="step2" data-step="2"></div>
+        <div class="progress-step" id="step3" data-step="3"></div>
+      </div>
+      <form id="multiStepForm">
+        <div class="step active" id="step-1">
+          <h4>Step 1: User Details</h4>
+          <input type="text" id="username" placeholder="Username" required />
+          <input type="email" id="email" placeholder="Email" required />
+          <div class="input-container">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+            <span class="toggle-password" onclick="togglePassword('password')"
+              >👁</span
+            >
+          </div>
+          <div class="input-container">
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              required
+            />
+            <span
+              class="toggle-password"
+              onclick="togglePassword('confirmPassword')"
+              >👁</span
+            >
+          </div>
+          <button type="button" onclick="nextStep(1)">Next</button>
+        </div>
+
+        <div class="step" id="step-2">
+          <h4>Step 2: Student Details</h4>
+          <input type="text" id="class" placeholder="Class" required />
+          <input type="text" id="section" placeholder="Section" required />
+          <input type="number" id="rollNo" placeholder="Roll No" required />
+          <button type="button" onclick="prevStep(2)">Previous</button>
+          <button type="button" onclick="nextStep(2)">Next</button>
+        </div>
+
+        <div class="step" id="step-3">
+          <h4>Step 3: Additional Information</h4>
+          <input type="date" id="dob" required />
+          <input type="number" id="age" placeholder="Age" required />
+          <select id="gender" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <input type="text" id="address" placeholder="Address" required />
+          <textarea id="comment" placeholder="Comments" required></textarea>
+          <button type="button" onclick="prevStep(3)">Previous</button>
+          <button type="button" onclick="submitForm()">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function togglePassword(id) {
+        const input = document.getElementById(id);
+        if (input.type === "password") {
+          input.type = "text";
+        } else {
+          input.type = "password";
+        }
+      }
+      function nextStep(step) {
+        const inputs = document.querySelectorAll(
+          `#step-${step} input, #step-${step} select, #step-${step} textarea`
+        );
+        for (let input of inputs) {
+          if (!input.value) {
+            alert("Please fill all fields");
+            return;
+          }
+        }
+        document.getElementById(`step-${step}`).classList.remove("active");
+        document.getElementById(`step-${step + 1}`).classList.add("active");
+        document.getElementById(`step${step}`).classList.add("active");
+      }
+      function prevStep(step) {
+        document.getElementById(`step-${step}`).classList.remove("active");
+        document.getElementById(`step-${step - 1}`).classList.add("active");
+        document.getElementById(`step${step - 1}`).classList.remove("active");
+      }
+      function submitForm() {
+        const inputs = document.querySelectorAll(
+          `#step-3 input, #step-3 select, #step-3 textarea`
+        );
+        for (let input of inputs) {
+          if (!input.value) {
+            alert("Please fill all fields");
+            return;
+          }
+        }
+        alert(`Welcome ${document.getElementById("username").value}`);
+      }
+    </script>
+  </body>
+</html>
